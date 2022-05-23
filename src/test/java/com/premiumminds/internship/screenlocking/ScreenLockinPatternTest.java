@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.premiumminds.internship.screenlocking.ScreenLockinPattern;
+
 /**
  * Created by aamado on 05-05-2022.
  */
