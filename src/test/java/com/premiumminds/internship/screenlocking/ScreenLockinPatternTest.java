@@ -36,4 +36,11 @@ public class ScreenLockinPatternTest {
     Integer result = count.get(10, TimeUnit.SECONDS);
     assertEquals(result.intValue(), 5);
   }
+  
+  @Test
+  public void ScreenLockinPatternTestFirst3Length3Test()  throws InterruptedException, ExecutionException, TimeoutException {
+	    Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(3, 3);
+	    Integer result = count.get(10, TimeUnit.SECONDS);
+	    assertEquals(result.intValue(), 31);
+	  }
 }

@@ -2,12 +2,11 @@ package com.premiumminds.intership.listsAvaliable;
 
 import java.util.Arrays;
 
-public class possibleList implements possibleLists {
+public class possibleList {
 
-	@Override
-	public int[] getAllPossibilities (int startingPoint) { //startingPoint >= 0
+	public static int[] getAllPossibilities (int startingPoint, int[] usedElems) { //startingPoint >= 0
 		
-		int[] possibilities = new int[10];
+		int[] possibilities = new int[9];
 		
 		if(startingPoint == 4) {
 			
@@ -16,18 +15,46 @@ public class possibleList implements possibleLists {
 			
 		} else if ((startingPoint % 2) == 0) {
 			
-			for(int i = 0; i < possibilities.length; i+=2) {
-				possibilities[i] = 1;
-			}
-			
-		} else {
-			
 			for(int i = 1; i < possibilities.length; i+=2) {
 				possibilities[i] = 1;
 			}
+			possibilities[startingPoint] = 0;
+			possibilities[4] = 1;
+			
+		} else {
+
+			Arrays.fill(possibilities, 1);
+			possibilities[startingPoint] = 0;
+			if (startingPoint == 1) {
+				possibilities[7] = 0;
+			} else if (startingPoint == 3) {
+				possibilities[5] = 0;
+			} else if (startingPoint == 5) {
+				possibilities[3] = 0;
+			} else {
+				possibilities[1] = 0;
+			}
+			
 		}
 		
-		return possibilities;
+		return filterUsed(startingPoint, possibilities, usedElems);
+	}
+	
+	public static int[] filterUsed(int position, int[] newList, int[] usedElems) {  //position [0,8]
+		
+		for (int i = 0; i < newList.length; i++) {
+			
+			if (usedElems[i] == 1) {
+				int maybe = getBlocked(position, i, usedElems);
+				if (maybe != 10) {
+					newList[maybe] = 1;
+				}
+				newList[i] = 0;
+			}
+			
+		}
+		
+		return newList;
 	}
 
 	public static int getBlocked (int position, int next, int[] usedElem) {
